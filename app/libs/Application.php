@@ -8,6 +8,6 @@ class Application
 {
     function __construct()
     {
-        print 'Bienvenido a mi tienda Virtual3';
+        print 'Bienvenido a mi tienda Virtual';
     }
 }
