@@ -10,7 +10,7 @@ class Mysqldb
     private $host = 'mysql';
     private $user = 'default';
     private $pass = 'secret';
-    private $dbname = 'tiendamvc';
+    private $dbname = 'tienda';
 
     // Atributos
     private static $instancia = null;
@@ -31,9 +31,11 @@ class Mysqldb
                 $this->pass,
                 $options
             );
+
         } catch (PDOException $error) {
 
             exit('La base de datos no está accesible');
+
         }
     }
 
