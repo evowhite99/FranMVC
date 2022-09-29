@@ -32,9 +32,9 @@ class LoginController extends Controller
         //SI estoy entrando por el post, es decir, enviando los datos del formulario
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             //procesamos la informacion recibida
-            $fisrtName = $_POST['fistName'] ?? '';//si exite lo que hay en $_POST['fist_name'] pongo eso si no exite ''
-            $lastName_1 = $_POST['lastName_1'] ?? '';
-            $lastName_2 = $_POST['lastName_2'] ?? '';
+            $firstName = $_POST['first_name'] ?? '';//si exite lo que hay en $_POST['fistName'] pongo eso si no exite ''
+            $lastName1 = $_POST['last_name_1'] ?? '';
+            $lastName2 = $_POST['last_name_2'] ?? '';
             $email = $_POST['email'] ?? '';
             $password1 = $_POST['password1'] ?? '';
             $password2 = $_POST['password2'] ?? '';
@@ -45,9 +45,9 @@ class LoginController extends Controller
             $country = $_POST['country'] ?? '';
 
             $dataForm = [
-                'firstName' => $fisrtName,
-                'lastName_1' => $lastName_1,
-                'lastName_2' => $lastName_2,
+                'firstName' => $firstName,
+                'lastName1' => $lastName1,
+                'lastName2' => $lastName2,
                 'email' => $email,
                 'password1' => $password1,
                 'password2' => $password2,
@@ -58,13 +58,13 @@ class LoginController extends Controller
                 'country' => $country
             ];
 
-            if($fisrtName == ''){
+            if($firstName == ''){
                 array_push($errors,'El nombre es requerido');
             }
-            if($lastName_1 == ''){
+            if($lastName1 == ''){
                 array_push($errors,'El primer apellido es requerido');
             }
-            if($lastName_2 == ''){
+            if($lastName2 == ''){
                 array_push($errors,'El segundo apellido es requerido');
             }
             if($email == ''){
@@ -114,8 +114,6 @@ class LoginController extends Controller
                 'menu'   => false,
             ];
         }
-
-
 
         $this->view('register', $data);
     }
