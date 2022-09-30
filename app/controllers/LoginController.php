@@ -21,7 +21,50 @@ class LoginController extends Controller
 
     public function olvido()
     {
-        print 'Estoy en olvido';
+        $errors = [];
+
+        if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+
+            $data = [
+                'titulo' => 'Olvido de la contraseña',
+                'menu' => false,
+                'errors' => [],
+                'subtitle' => '¿Olvidaste la contraseña?'
+            ];
+
+            $this->view('olvido', $data);
+
+        } else {
+
+            $email = $_POST['email'] ?? '';
+
+            if ($email == '') {
+                array_push($errors, 'El email es requerido');
+            }
+            if( ! filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                array_push($errors, 'El correo electrónico no es válido');
+            }
+
+            if (count($errors) == 0) {
+                if ( ! $this->model->existsEmail($email)) {
+                    array_push($errors, 'El correo electrónico no existe en la base de datos');
+                } else {
+                    $this->model->sendEmail($email);
+                }
+            }
+
+            if (count($errors) > 0) {
+                $data = [
+                    'titulo' => 'Olvido de la contraseña',
+                    'menu' => false,
+                    'errors' => $errors,
+                    'subtitle' => '¿Olvidaste la contraseña?'
+                ];
+
+                $this->view('olvido', $data);
+            }
+
+        }
     }
 
     public function registro()
@@ -36,7 +79,7 @@ class LoginController extends Controller
             $lastName1 = $_POST['last_name_1'] ?? '';
             $lastName2 = $_POST['last_name_2'] ?? '';
             $email = $_POST['email'] ?? '';
-            $password1 = $_POST['password1'] ?? '';
+            $password = $_POST['password'] ?? '';
             $password2 = $_POST['password2'] ?? '';
             $address = $_POST['address'] ?? '';
             $city = $_POST['city'] ?? '';
@@ -49,7 +92,7 @@ class LoginController extends Controller
                 'lastName1' => $lastName1,
                 'lastName2' => $lastName2,
                 'email' => $email,
-                'password1' => $password1,
+                'password' => $password,
                 'password2' => $password2,
                 'address' => $address,
                 'city' => $city,
@@ -70,7 +113,7 @@ class LoginController extends Controller
             if($email == ''){
                 array_push($errors,'El email es requerido');
             }
-            if($password1 == ''){
+            if($password == ''){
                 array_push($errors,'La contraseña es requerida');
             }
             if($password2 == ''){
@@ -91,30 +134,64 @@ class LoginController extends Controller
             if($country == ''){
                 array_push($errors,'El pais es requerido');
             }
-            if($password1!=$password2){
+            if($password!=$password2){
                 array_push($errors,'Las contraseñas deben ser iguales');
             }
 
-            if(count($errors) == 0){
-                print 'Pasamos a dar de alta al usuario en la base de datos';
-            }else{
-                //var_dump($errors);
+            if (count($errors) == 0) {
+
+                if ($this->model->createUser($dataForm)) {
+
+                    $data = [
+                        'titulo' => 'Bienvenido',
+                        'menu' => false,
+                        'errors' => [],
+                        'subtitle' => 'Bienvenido/a a nuestra tienda online',
+                        'text' => 'Gracias por su registro',
+                        'color' => 'alert-success',
+                        'url' => 'menu',
+                        'colorButton' => 'btn-success',
+                        'textButton' => 'Acceder',
+                    ];
+
+                    $this->view('mensaje', $data);
+
+                } else {
+
+                    $data = [
+                        'titulo' => 'Error',
+                        'menu' => false,
+                        'errors' => [],
+                        'subtitle' => 'Error en el proceso de registro.',
+                        'text' => 'Probablemente el correo utilizado ya exista. Pruebe con otro',
+                        'color' => 'alert-danger',
+                        'url' => 'login',
+                        'colorButton' => 'btn-danger',
+                        'textButton' => 'Regresar',
+                    ];
+
+                    $this->view('mensaje', $data);
+
+                }
+
+            } else {
                 $data = [
                     'titulo' => 'Registro',
                     'menu'   => false,
                     'errors' => $errors,
-                    'dataform' => $dataForm
+                    'dataForm' => $dataForm
                 ];
-            }
 
-        }else{ //Si estoy entrando por el get, es decir, clickando desde el login en "nuevo usuario"
-            //Mostramos el formulario
+                $this->view('register', $data);
+            }
+        } else {
+            // Mostramos el formulario
             $data = [
                 'titulo' => 'Registro',
                 'menu'   => false,
             ];
-        }
 
-        $this->view('register', $data);
+            $this->view('register', $data);
+        }
     }
 }

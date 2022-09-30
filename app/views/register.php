@@ -35,7 +35,7 @@
                 </div>
                 <div class="form-group text-left">
                     <label for="password">Clave de acceso:</label>
-                    <input type="password" name="password1" id="password1" class="form-control"
+                    <input type="password" name="password" id="password" class="form-control"
                            required placeholder="Escriba su contraseña"
 
                     >
