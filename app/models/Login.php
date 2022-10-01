@@ -27,7 +27,8 @@ class Login
 
             $password = hash_hmac('sha512',$data['password'],'elperrodesanroque');
 
-            $sql = 'INSERT INTO users(first_name,last_name_1,last_name_2,email,address,city,state,zipcode,country,password) VALUES (:first_name,:last_name_1,:last_name_2,:email,:address,:city,:state,:zipcode,:country,:password)';
+            $sql = 'INSERT INTO users(first_name,last_name_1,last_name_2,email,address,city,state,zipcode,country,password) 
+                    VALUES (:first_name,:last_name_1,:last_name_2,:email,:address,:city,:state,:zipcode,:country,:password)';
 
             $params = [':first_name' => $data['firstName'],
                 ':last_name_1' => $data['lastName1'],
@@ -71,10 +72,10 @@ class Login
 
         $headers = 'MIME-Version: 1.0\r\n';
         $headers .= 'Content-type:text/html; charset=UTF-8\r\n';
-        $headers .= 'From: tiendamvc\r\n';
+        $headers .= 'From: tienda\r\n';
         $headers .= 'Reply-to: administracion@tiendamvc.local';
 
-        $subject = "Cambiar contraseña en tiendamvc";
+        $subject = "Cambiar contraseña en tienda";
 
         return mail($email, $subject, $msg, $headers);
 
