@@ -20,9 +20,9 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <a href="<?= ROOT ?>" class="navbar-brand">Tienda</a>
     <div class="collapse navbar-collapse" id="menu">
-        // Enlaces del menú para todos
+<!--        Enlaces del menú para todos-->
         <?php if($data['menu']): ?>
-            // Ubicación del menú para usuarios logueados
+<!--            Ubicación del menú para usuarios logueados-->
         <?php endif; ?>
     </div>
 </nav>
@@ -33,13 +33,13 @@
         </div>
         <div class="col-sm-8">
             <?php if (isset($data['errors']) && count($data['errors']) > 0) : ?>
-            <div class="alert alert-danger mt-3">
-                <ul class="list-group">
-                    <?php foreach($data['errors'] as $value) : ?>
-                        <li class="list-group-item alert alert-danger">
-                            <strong><?= $value ?></strong>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-<?php endif; ?>
+                <div class="alert alert-danger mt-3">
+                    <ul class="list-group">
+                        <?php foreach($data['errors'] as $value) : ?>
+                            <li class="list-group-item alert alert-danger">
+                                <strong><?= $value ?></strong>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            <?php endif; ?>
