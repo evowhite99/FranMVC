@@ -1,4 +1,3 @@
-
 <?php
 
 class AdminUserController extends Controller
@@ -12,14 +11,24 @@ class AdminUserController extends Controller
 
     public function index()
     {
-        $data = [
-            'titulo' => 'Administración de Usuarios',
-            'menu' => false,
-            'admin' => true,
-            'data' => [],
-        ];
+        $session = new Session();
 
-        $this->view('admin/users/index', $data);
+        if ($session->getLogin()) {
+
+            $users = $this->model->getUsers();
+
+            $data = [
+                'titulo' => 'Administración de Usuarios',
+                'menu' => false,
+                'admin' => true,
+                'users' => $users,
+            ];
+
+            $this->view('admin/users/index', $data);
+        } else {
+            header('LOCATION:' . ROOT . 'admin');
+        }
+
     }
 
     public function create()
@@ -58,8 +67,21 @@ class AdminUserController extends Controller
             if ( ! $errors) {
 
                 if ($this->model->createAdminUser($dataForm)) {
-
+                    header("location:" . ROOT . 'adminuser');
                 } else {
+
+                    $data = [
+                        'titulo' => 'Error en la creación de un usuario administrador',
+                        'menu' => false,
+                        'errors' => [],
+                        'subtitle' => 'Error al crear un nuevo usuario administrador',
+                        'text' => 'Se ha producido un error durante el proceso de creación de un usuario administrador',
+                        'color' => 'alert-danger',
+                        'url' => 'adminuser',
+                        'colorButton' => 'btn-danger',
+                        'textButton' => 'Volver',
+                    ];
+                    $this->view('mensaje', $data);
 
                 }
 
@@ -91,9 +113,26 @@ class AdminUserController extends Controller
         }
     }
 
-    public function update()
+    public function update($id)
     {
-        print 'Modificación de usuarios';
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+        } else {
+
+            $user = $this->model->getUserById($id);
+            $status = $this->model->getConfig('adminStatus');
+
+            $data = [
+                'titulo' => 'Administración de Usuarios - Editar',
+                'menu' => false,
+                'admin' => true,
+                'data' => $user,
+                'status' => $status,
+            ];
+
+            $this->view('admin/users/update', $data);
+
+        }
     }
 
     public function delete()
