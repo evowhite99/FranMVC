@@ -37,6 +37,7 @@ class Validate
         return $file;
     }
 
+    //rediemnsionar imagen
     public static function resizeImage($image, $newWidth)
     {
         $file = 'img/' . $image;
