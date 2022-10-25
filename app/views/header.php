@@ -15,10 +15,12 @@
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 
+    <!-- icono -->
+    <script src="https://kit.fontawesome.com/c858fc57f5.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-    <a href="<?= ROOT ?>" class="navbar-brand">Tienda</a>
+    <a href="<?= ROOT ?>shop" class="navbar-brand">Tienda</a>
     <div class="collapse navbar-collapse" id="menu">
 <!--        Enlaces del menú para todos-->
         <?php if($data['menu']): ?>
@@ -38,6 +40,13 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <li class="nav-item">
+                    <form action="<?= ROOT ?>search/products" class="d-flex" method="POST">
+                        <input type="text" name="search" id="search" class="form-control"
+                               size="20" placeholder="¿producto?" required>
+                        <button type="submit" class="btn btn-light"><i class="fas fa-search"></i> </button>
+                    </form>
+                </li>
                 <li class="nav-item">
                     <a href="<?= ROOT ?>shop/logout" class="nav-link">Salir</a>
                 </li>

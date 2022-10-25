@@ -91,6 +91,9 @@ class AdminProductController extends Controller
             }elseif ( ! Validate::dateDif($published) ){
                 array_push($errors,'La fecha de publicación no puede ser anterior a hoy');
             }
+            if (empty($status)) {
+                array_push($errors, 'El estado del producto es necesario');
+            }
             if ($type == 1) {
                 if (empty($people)) {
                     array_push($errors, 'El público objetivo del curso es obligatorio');
@@ -215,9 +218,9 @@ class AdminProductController extends Controller
             $publisher = Validate::text($_POST['publisher'] ?: 'José');
             $pages = Validate::number($_POST['pages'] ?: '100');
             //Courses
-            $people = Validate::text($_POST['people'] ?? '');
-            $objetives = Validate::text($_POST['objetives'] ?? '');
-            $necesites = Validate::text($_POST['necesites'] ?? '');
+            $people = Validate::text($_POST['people'] ?: 'Novatos');
+            $objetives = Validate::text($_POST['objetives'] ?: 'Desde la nada al todo en PHP');
+            $necesites = Validate::text($_POST['necesites'] ?: 'Ganas, muchas ganas');
 
             // Validamos la información
             if (empty($name)) {
@@ -238,11 +241,13 @@ class AdminProductController extends Controller
             if (is_numeric($price) && is_numeric($discount) && $price < $discount) {
                 array_push($errors, 'El descuento no puede ser mayor que el precio');
             }
+
             if ( ! Validate::date($published) ) {
                 array_push($errors, 'La fecha o su formato no es correcto');
             } elseif ( ! Validate::dateDif($published)) {
                 array_push($errors, 'La fecha de publicación no puede ser anterior a hoy');
             }
+
             if ($type == 1) {
                 if (empty($people)) {
                     array_push($errors, 'El público objetivo del curso es obligatorio');
@@ -260,6 +265,7 @@ class AdminProductController extends Controller
                 if (empty($publisher)) {
                     array_push($errors, 'La editorial del libro es necesaria');
                 }
+
                 if ( ! is_numeric($pages)) {
                     $pages = 0;
                     array_push($errors, 'La cantidad de páginas de un libro debe de ser un número');
