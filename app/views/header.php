@@ -19,8 +19,8 @@
     <script src="https://kit.fontawesome.com/c858fc57f5.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-    <a href="<?= ROOT ?>shop" class="navbar-brand">Tienda</a>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark mb-5">
+    <a href="<?= ROOT ?>shop" class="navbar-brand ms-3">Tienda</a>
     <div class="collapse navbar-collapse" id="menu">
 <!--        Enlaces del menú para todos-->
         <?php if($data['menu']): ?>
@@ -39,7 +39,15 @@
                     <a href="<?= ROOT ?>shop/contact" class="nav-link <?= (isset($data['active']) && $data['active']=='contact') ? 'active' : '' ?>">Contacto</a>
                 </li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
+            <!-- Carrito con su precio (solo cuando haya producto) -->
+            <ul class="nav navbar-nav navbar-right " style="margin-left: 900px;" >
+                <?php if(isset($_SESSION['cartTotal']) && $_SESSION['cartTotal'] > 0): ?>
+                    <li class="nav-item">
+                        <a href="<?= ROOT ?>cart" class="nav-link">
+                            Carrito: <?= number_format($_SESSION['cartTotal'], 2) ?>&euro;
+                        </a>
+                    </li>
+                <?php endif; ?>
                 <li class="nav-item">
                     <form action="<?= ROOT ?>search/products" class="d-flex" method="POST">
                         <input type="text" name="search" id="search" class="form-control"
