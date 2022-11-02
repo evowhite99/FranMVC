@@ -20,12 +20,11 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark mb-5">
-    <!-- SI no es Admin -->
-    <?php if($data['menu']): ?>
-        <a href="<?= ROOT ?>shop" class="navbar-brand ms-3">Tienda</a>
-        <!-- SI es Admin -->
-    <?php else: ?>
+
+    <?php if(isset($data['admin']) && $data['admin']): ?><!-- SI es Admin -->
         <a href="<?= ROOT ?>AdminShop" class="navbar-brand ms-3">Tienda</a>
+    <?php else: ?> <!-- SI No es Admin -->
+        <a href="<?= ROOT ?>shop" class="navbar-brand ms-3">Tienda</a>
     <?php endif; ?>
     <div class="collapse navbar-collapse" id="menu">
 <!--        Enlaces del menú para todos-->
