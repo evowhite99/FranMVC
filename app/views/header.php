@@ -20,11 +20,18 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark mb-5">
-    <a href="<?= ROOT ?>shop" class="navbar-brand ms-3">Tienda</a>
+    <!-- SI no es Admin -->
+    <?php if($data['menu']): ?>
+        <a href="<?= ROOT ?>shop" class="navbar-brand ms-3">Tienda</a>
+        <!-- SI es Admin -->
+    <?php else: ?>
+        <a href="<?= ROOT ?>AdminShop" class="navbar-brand ms-3">Tienda</a>
+    <?php endif; ?>
     <div class="collapse navbar-collapse" id="menu">
 <!--        Enlaces del menú para todos-->
         <?php if($data['menu']): ?>
 <!--            Ubicación del menú para usuarios logueados-->
+
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item">
                     <a href="<?= ROOT ?>courses" class="nav-link <?= (isset($data['active']) && $data['active']=='courses') ? 'active' : '' ?>">Cursos</a>
@@ -60,7 +67,9 @@
                 </li>
             </ul>
         <?php endif; ?>
+        <!--            Ubicación del menú para usuarios admin-->
         <?php if(isset($data['admin']) && $data['admin']): ?>
+
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item">
                     <a href="<?= ROOT ?>adminUser" class="nav-link">Usuarios</a>
