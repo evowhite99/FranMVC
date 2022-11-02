@@ -1,4 +1,5 @@
 <?php include_once(VIEWS . 'header.php')?>
+<!-- Usuarios administradores -->
     <div class="card p-4 bg-light">
         <div class="card-header">
             <h1 class="text-center">Usuarios Administradores</h1>
@@ -13,7 +14,7 @@
                 <th>Borrar</th>
                 </thead>
                 <tbody>
-                <?php foreach ($data['users'] as $user): ?>
+                <?php foreach ($data['adminUsers'] as $user): ?>
                     <tr>
                         <td class="text-center"><?= $user->id ?></td>
                         <td class="text-center"><?= $user->name ?></td>
@@ -45,5 +46,31 @@
                 </div>
             </div>
         </div>
+    </div>
+    <!-- Usuarios NO administradores -->
+    <div class="card p-4 bg-light">
+        <div class="card-header">
+            <h1 class="text-center">Usuarios</h1>
+        </div>
+        <div class="card-body">
+            <table class="table text-center" width="100%">
+                <thead>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+
+                </thead>
+                <tbody>
+                <?php foreach ($data['users'] as $user): ?>
+                    <tr>
+                        <td class="text-center"><?= $user->id ?></td>
+                        <td class="text-center"><?= $user->first_name . ' ' . $user->last_name_1 ?></td>
+                        <td class="text-center"><?= $user->email ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+
     </div>
 <?php include_once(VIEWS . 'footer.php')?>

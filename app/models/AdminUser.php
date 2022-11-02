@@ -48,9 +48,18 @@ class AdminUser
         return $query->rowCount();
     }
 
-    public function getUsers()
+    public function getAdminUsers()
     {
         $sql = 'SELECT * FROM admins WHERE deleted = 0';
+        $query = $this->db->prepare($sql);
+        $query->execute();
+
+        return $query->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function getUsers()
+    {
+        $sql = 'SELECT * FROM users';
         $query = $this->db->prepare($sql);
         $query->execute();
 
