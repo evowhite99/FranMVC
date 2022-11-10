@@ -46,7 +46,7 @@
                 </li>
             </ul>
             <!-- Carrito con su precio (solo cuando haya producto) -->
-            <ul class="nav navbar-nav navbar-right " style="margin-left: 840px;" >
+            <ul class="nav navbar-nav navbar-right " style="margin-left: 840px;">
                 <?php if(isset($_SESSION['cartTotal']) && $_SESSION['cartTotal'] > 0): ?>
                     <li class="nav-item">
                         <a href="<?= ROOT ?>cart" class="nav-link">
@@ -79,6 +79,14 @@
                 </li>
                 <li class="nav-item">
                     <a href="<?= ROOT ?>adminProduct" class="nav-link">Productos</a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= ROOT ?>adminSales" class="nav-link">Ventas</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="margin-left: 1300px;">
+                <li class="nav-item">
+                <a href="<?= ROOT ?>admin/logout" class="btn btn-danger ms-5";">Salir</a>
                 </li>
             </ul>
         <?php endif; ?>

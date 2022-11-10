@@ -34,7 +34,6 @@ class AdminUser
             $response = $query->execute($params);
 
         }
-        var_dump($response);
         return $response;
     }
 
