@@ -36,8 +36,8 @@ class CartController extends Controller
     {
         $errors = [];
 
-        if ($this->model->addProduct($product_id, $user_id) == false) {
-            if ($this->model->verifyProduct($product_id, $user_id)) {
+        if ($this->model->verifyProduct($product_id, $user_id) == false) {
+            if ($this->model->addProduct($product_id, $user_id) == false) {
                 array_push($errors,'Error al insertar el producto en la base de datos');
             }
         }
@@ -90,19 +90,14 @@ class CartController extends Controller
 
             $this->view('carts/address', $data);
         } else {
-            $data = [
-                'titulo' => 'Carrito | Checkout',
-                'subtitle' => 'Checkout | Iniciar sesion',
-                'menu' => true
-            ];
-
-            $this->view('carts/checkout', $data);
+            header('LOCATION:' . ROOT);
         }
     }
 
+
     public function paymentmode()
     {
-        //Desarollar en mi casa Solo por POST y validar datos y comprobar si esta iniciado la session
+        //Desarrollar en mi casa Solo por POST y validar datos y comprobar si esta iniciado la session
 
         $session = new Session();
 
@@ -212,26 +207,18 @@ class CartController extends Controller
         }else{
             $session->login($user);
 
-
+            $paymentMode = $this->model->paymentMode();//para ver los tipos de pago quee existen en la base de datos
             $data = [
                 'titulo' => 'Carrito | Forma de Pago',
                 'subtitle' => 'Checkout | Forma de Pago',
                 'menu' => true,
+                'paymentMode' => $paymentMode,
             ];
 
             $this->view('carts/paymentmode' , $data);
         }
-
-
-
-        /*$data = [
-            'titulo' => 'Carrito | Forma de pago',
-            'subtitle' => 'Checkout | Forma de pago',
-            'menu' => true,
-        ];
-
-        $this->view('carts/paymentmode', $data);*/
     }
+
 
     public function verify()
     {
@@ -239,22 +226,48 @@ class CartController extends Controller
         $user = $session->getUser();
         $cart = $this->model->getCart($user->id);
         $payment = $_POST['payment'] ?? '';
+        $errors=[];
 
-        $data = [
-            'titulo' => 'Carrito | Verificar los datos',
-            'menu' => true,
-            'payment' => $payment,
-            'user' => $user,
-            'data' => $cart,
-        ];
+        if(! $session->getLogin()){
+            header('LOCATION:' . ROOT);
+        }
 
-        $this->view('carts/verify', $data);
+        if($payment == ''){
+            array_push($errors , 'El método de pago es Obligatorio');
+        }
+
+        if(count($errors) > 0 ){
+            $paymentMode = $this->model->paymentMode();//para ver los tipos de pago quee existen en la base de datos
+            $data = [
+                'titulo' => 'Carrito | Forma de Pago',
+                'subtitle' => 'Checkout | Forma de Pago',
+                'menu' => true,
+                'paymentMode' => $paymentMode,
+                'errors' => $errors,
+            ];
+
+            $this->view('carts/paymentmode' , $data);
+        } else{
+            $data = [
+                'titulo' => 'Carrito | Verificar los datos',
+                'menu' => true,
+                'payment' => $payment,
+                'user' => $user,
+                'data' => $cart,
+            ];
+
+            $this->view('carts/verify', $data);
+        }
     }
 
     public function thanks()
     {
         $session = new Session();
         $user = $session->getUser();
+
+        if(! $session->getLogin()){
+            header('LOCATION:' . ROOT);
+        }
 
         if ($this->model->closeCart($user->id, 1)) {
 

@@ -62,7 +62,11 @@
                     </form>
                 </li>
                 <li class="nav-item">
+                    <?php if(isset($_SESSION['user']) && $_SESSION['cartTotal'] >= 0): ?>
                     <a href="<?= ROOT ?>shop/logout" class="nav-link">Salir</a>
+                    <?php else : ?>
+                    <a href="<?= ROOT ?>login" class="nav-link">LOGIN</a>
+                    <?php endif; ?>
                 </li>
             </ul>
         <?php endif; ?>
