@@ -34,7 +34,7 @@ class AdminUser
             $response = $query->execute($params);
 
         }
-
+        var_dump($response);
         return $response;
     }
 
@@ -67,6 +67,15 @@ class AdminUser
     }
 
     public function getUserById($id)
+    {
+        $sql = 'SELECT * FROM users WHERE id=:id';
+        $query = $this->db->prepare($sql);
+        $query->execute([':id' => $id]);
+
+        return $query->fetch(PDO::FETCH_OBJ);
+    }
+
+    public function getAdminUserById($id)
     {
         $sql = 'SELECT * FROM admins WHERE id=:id';
         $query = $this->db->prepare($sql);
@@ -126,7 +135,7 @@ class AdminUser
 
     }
 
-    public function delete($id)
+    public function deleteAdmin($id)
     {
         $errors = [];
 
@@ -141,6 +150,24 @@ class AdminUser
 
         if ( ! $query->execute($params) ) {
             array_push($errors, 'Error al eliminar el usuario administrador');
+        }
+
+        return $errors;
+    }
+
+    public function deleteUser($id)
+    {
+        $errors = [];
+
+        $sql = 'DELETE FROM users WHERE id=:id';
+        $params = [
+            'id' => $id,
+        ];
+
+        $query = $this->db->prepare($sql);
+
+        if ( ! $query->execute($params) ) {
+            array_push($errors, 'Error al eliminar el usuario');
         }
 
         return $errors;

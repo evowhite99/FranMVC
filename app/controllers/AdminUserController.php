@@ -67,7 +67,6 @@ class AdminUserController extends Controller
             }
 
             if ( ! $errors) {
-
                 if ($this->model->createAdminUser($dataForm)) {
                     header("location:" . ROOT . 'adminUser');
                 } else {
@@ -157,7 +156,7 @@ class AdminUserController extends Controller
             }
         }
 
-        $user = $this->model->getUserById($id);
+        $user = $this->model->getAdminUserById($id);
         $status = $this->model->getConfig('adminStatus');
 
         $data = [
@@ -172,13 +171,13 @@ class AdminUserController extends Controller
         $this->view('admin/users/update', $data);
     }
 
-    public function delete($id)
+    public function details($id)
     {
         $errors = [];
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            $errors = $this->model->delete($id);
+            $errors = $this->model->getUserById($id);
 
             if ( ! $errors ) {
                 header('location:' . ROOT . 'adminUser');
@@ -187,6 +186,36 @@ class AdminUserController extends Controller
         }
 
         $user = $this->model->getUserById($id);
+
+        $data = [
+            'titulo' => 'Administración de Usuarios - Ver detalles',
+            'menu' => false,
+            'admin' => true,
+            'data' => $user,
+            'errors' => $errors,
+        ];
+
+        $this->view('admin/users/details', $data);
+
+    }
+
+
+
+    public function deleteAdmin($id)
+    {
+        $errors = [];
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            $errors = $this->model->deleteAdmin($id);
+
+            if ( ! $errors ) {
+                header('location:' . ROOT . 'adminUser');
+            }
+
+        }
+
+        $user = $this->model->getAdminUserById($id);
         $status = $this->model->getConfig('adminStatus');
 
         $data = [
@@ -198,6 +227,33 @@ class AdminUserController extends Controller
             'errors' => $errors,
         ];
 
-        $this->view('admin/users/delete', $data);
+        $this->view('admin/users/deleteAdmin', $data);
+    }
+
+    public function deleteUser($id)
+    {
+        $errors = [];
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            $errors = $this->model->deleteUser($id);
+
+            if ( ! $errors ) {
+                header('location:' . ROOT . 'adminUser');
+            }
+
+        }
+
+        $user = $this->model->getUserById($id);
+
+        $data = [
+            'titulo' => 'Administración de Usuarios - Eliminación',
+            'menu' => false,
+            'admin' => true,
+            'data' => $user,
+            'errors' => $errors,
+        ];
+
+        $this->view('admin/users/deleteUser', $data);
     }
 }

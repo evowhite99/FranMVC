@@ -25,7 +25,7 @@
                             >Editar</a>
                         </td>
                         <td class="text-center">
-                            <a href="<?= ROOT ?>adminUser/delete/<?= $user->id ?>"
+                            <a href="<?= ROOT ?>adminUser/deleteAdmin/<?= $user->id ?>"
                                class="btn btn-danger"
                             >Borrar</a>
                         </td>
@@ -66,6 +66,16 @@
                         <td class="text-center"><?= $user->id ?></td>
                         <td class="text-center"><?= $user->first_name . ' ' . $user->last_name_1 ?></td>
                         <td class="text-center"><?= $user->email ?></td>
+                        <td class="text-center">
+                            <a href="<?= ROOT ?>adminUser/details/<?= $user->id ?>"
+                               class="btn btn-info"
+                            >Ver Detalles</a>
+                        </td>
+                        <td class="text-center">
+                            <a href="<?= ROOT ?>adminUser/deleteUser/<?= $user->id ?>"
+                               class="btn btn-danger"
+                            >Borrar</a>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>

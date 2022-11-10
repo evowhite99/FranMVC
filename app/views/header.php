@@ -46,7 +46,7 @@
                 </li>
             </ul>
             <!-- Carrito con su precio (solo cuando haya producto) -->
-            <ul class="nav navbar-nav navbar-right " style="margin-left: 900px;" >
+            <ul class="nav navbar-nav navbar-right " style="margin-left: 840px;" >
                 <?php if(isset($_SESSION['cartTotal']) && $_SESSION['cartTotal'] > 0): ?>
                     <li class="nav-item">
                         <a href="<?= ROOT ?>cart" class="nav-link">
@@ -58,14 +58,14 @@
                     <form action="<?= ROOT ?>search/products" class="d-flex" method="POST">
                         <input type="text" name="search" id="search" class="form-control"
                                size="20" placeholder="¿producto?" required>
-                        <button type="submit" class="btn btn-light"><i class="fas fa-search"></i> </button>
+                        <button type="submit" class="btn btn-light ms-1"><i class="fas fa-search"></i> </button>
                     </form>
                 </li>
                 <li class="nav-item">
                     <?php if(isset($_SESSION['user']) && $_SESSION['cartTotal'] >= 0): ?>
-                    <a href="<?= ROOT ?>shop/logout" class="nav-link">Salir</a>
+                    <a href="<?= ROOT ?>shop/logout" class="btn btn-danger ms-5">Salir</a>
                     <?php else : ?>
-                    <a href="<?= ROOT ?>login" class="nav-link">LOGIN</a>
+                    <a href="<?= ROOT ?>login" class="btn btn-secondary ms-5">LOGIN</a>
                     <?php endif; ?>
                 </li>
             </ul>
