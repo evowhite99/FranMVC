@@ -24,6 +24,7 @@ class AdminProductController extends Controller
                 'admin' => true,
                 'type' => $type,
                 'products' => $products,
+                'active' => 'products',
             ];
 
             $this->view('admin/products/index', $data);

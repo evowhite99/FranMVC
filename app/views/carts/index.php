@@ -37,7 +37,7 @@
                 </td>
             </tr>
             <?php $subtotal += $value->price * $value->quantity ?>
-            <?php $discount += $value->discount ?>
+            <?php $discount += $value->discount * $value->quantity ?>
             <?php $send += $value->send ?>
         <?php endforeach; ?>
         <?php $total = $subtotal - $discount + $send ?>
@@ -54,7 +54,7 @@
     <tr>
         <td width="79.25%"></td>
         <td width="11.55%">Descuento:</td>
-        <td width="9.20%"><?= number_format($discount, 2) ?></td>
+        <td width="9.20%">-<?= number_format($discount, 2) ?></td>
     </tr>
     <tr>
         <td width="79.25%"></td>

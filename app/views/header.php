@@ -75,16 +75,16 @@
 
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item">
-                    <a href="<?= ROOT ?>adminUser" class="nav-link">Usuarios</a>
+                    <a href="<?= ROOT ?>adminUser" class="nav-link <?= (isset($data['active']) && $data['active']=='users') ? 'active' : '' ?>">Usuarios</a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= ROOT ?>adminProduct" class="nav-link">Productos</a>
+                    <a href="<?= ROOT ?>adminProduct" class="nav-link <?= (isset($data['active']) && $data['active']=='products') ? 'active' : '' ?>">Productos</a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= ROOT ?>adminSales" class="nav-link">Ventas</a>
+                    <a href="<?= ROOT ?>adminSales" class="nav-link <?= (isset($data['active']) && $data['active']=='sales') ? 'active' : '' ?>">Ventas</a>
                 </li>
             </ul>
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="margin-left: 1300px;">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="margin-left: 1300px;">
                 <li class="nav-item">
                 <a href="<?= ROOT ?>admin/logout" class="btn btn-danger ms-5";">Salir</a>
                 </li>

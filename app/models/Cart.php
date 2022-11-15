@@ -38,7 +38,7 @@ class Cart
             ':quantity' => 1,
             ':discount' => $product->discount,
             ':send' => $product->send,
-            ':date' => date('Y-m-d H:i:s'),
+            ':date' => date('Y-m-d H:i:s',strtotime('+1 hours')),
         ];
 
         $query2->execute($params2);
@@ -97,12 +97,16 @@ class Cart
 
     public function closeCart($id,$state)
     {
-        $sql = 'UPDATE carts SET state=:state WHERE user_id=:user_id AND state=0';
+        $sql = 'UPDATE carts SET state=:state , date=:date WHERE user_id=:user_id AND state=0';
         $query = $this->db->prepare($sql);
+        $newDate = date('Y-m-d H:i:s',strtotime('+1 hours'));
         $params = [
             ':user_id' => $id,
             ':state' => $state,
+            ':date' => $newDate,
         ];
         return $query->execute($params);
     }
+
+
 }
