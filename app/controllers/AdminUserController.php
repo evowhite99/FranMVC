@@ -201,7 +201,6 @@ class AdminUserController extends Controller
     }
 
 
-
     public function deleteAdmin($id)
     {
         $errors = [];

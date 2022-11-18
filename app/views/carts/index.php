@@ -7,8 +7,8 @@
             <th width="12%">Producto</th>
             <th width="58%">Descripción</th>
             <th width="1.8%">Cant.</th>
-            <th width="10.12%">Precio</th>
-            <th width="10.12%">Subtotal</th>
+            <th width="7.12%">Precio</th>
+            <th width="8.12%">Subtotal</th>
             <th width="1%">&nbsp;</th>
             <th width="6.5%">Borrar</th>
         </tr>

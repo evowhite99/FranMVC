@@ -17,6 +17,7 @@
 
     <!-- icono -->
     <script src="https://kit.fontawesome.com/c858fc57f5.js" crossorigin="anonymous"></script>
+
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark mb-5">
@@ -44,9 +45,14 @@
                 <li class="nav-item">
                     <a href="<?= ROOT ?>shop/contact" class="nav-link <?= (isset($data['active']) && $data['active']=='contact') ? 'active' : '' ?>">Contacto</a>
                 </li>
+                <?php if(isset($_SESSION['user']) && $_SESSION['cartTotal'] >= 0): ?>
+                <li class="nav-item">
+                    <a href="<?= ROOT ?>wishList" class="nav-link <?= (isset($data['active']) && $data['active']=='wishList') ? 'active' : '' ?>">Lista de Deseos</a>
+                </li>
+                <?php endif; ?>
             </ul>
             <!-- Carrito con su precio (solo cuando haya producto) -->
-            <ul class="nav navbar-nav navbar-right " style="margin-left: 840px;">
+            <ul class="nav navbar-nav navbar-right " style="margin-left:<?= (isset($_SESSION['user']) && $_SESSION['cartTotal'] >= 0) ? 710 : 880?>px;">
                 <?php if(isset($_SESSION['cartTotal']) && $_SESSION['cartTotal'] > 0): ?>
                     <li class="nav-item">
                         <a href="<?= ROOT ?>cart" class="nav-link">
